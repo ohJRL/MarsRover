@@ -48,6 +48,9 @@ public class Main {
             userInstructions.add(line);
         }
 
+        // Ensures that there is at least one rover
+        if (userInstructions.size() < 2) return;
+
         // Send the instructions to the controller
         final RoverController roverController = new RoverController();
         roverController.sendInstructions(userInstructions);
