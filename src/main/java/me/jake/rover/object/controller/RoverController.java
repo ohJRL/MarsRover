@@ -43,7 +43,11 @@ public final class RoverController {
 
     private void outputRoverPositions(@NotNull List<Rover> rovers) {
         for (Rover rover : rovers) {
-            System.out.println(rover.getPosition().getX() + " " + rover.getPosition().getY() + " " + rover.getPosition().getDirection());
+            if (rover.getPlateau().isWithinGrid(rover.getPosition().getX(), rover.getPosition().getY())) {
+                System.out.println(rover.getPosition().getX() + " " + rover.getPosition().getY() + " " + rover.getPosition().getDirection());
+            } else {
+                System.out.println("This rover has gone out of bounds!");
+            }
         }
     }
 }
