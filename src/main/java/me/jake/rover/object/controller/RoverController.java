@@ -14,17 +14,26 @@ import java.util.List;
 public final class RoverController {
 
     public void sendInstructions(@NotNull List<String> instructions) {
-        // List to store all the rovers
         final List<Rover> allRovers = new ArrayList<>();
+        final int maxX = Main.getPlateau().getMaxX();
+        final int maxY = Main.getPlateau().getMaxY();
 
         // Loop over all rovers, get the initial position and commands
         for (int i = 0; i < instructions.size(); i += 2) {
 
             // Get the initial position of the rover
             final String[] initialPosition = instructions.get(i).split(" ");
-            final int x = Integer.parseInt(initialPosition[0]);
-            final int y = Integer.parseInt(initialPosition[1]);
-            final String direction = initialPosition[2];
+
+            // Validate the input
+            if (!isValidInput(initialPosition, maxX, maxY)) {
+                System.out.println("Invalid rover input");
+                return;
+            }
+
+            // Get the x, y, and direction of the rover
+            int x = Integer.parseInt(initialPosition[0]);
+            int y = Integer.parseInt(initialPosition[1]);
+            String direction = initialPosition[2];
 
             // Create the rover object
             final Rover rover = new Rover(Main.getPlateau(), new Position(x, y, direction));
@@ -39,6 +48,34 @@ public final class RoverController {
 
         // Output the final positions of the rovers
         this.outputRoverPositions(allRovers);
+    }
+
+    private boolean isValidInput(@NotNull String[] initialPosition, int maxX, int maxY) {
+        if (initialPosition.length < 3) {
+            return false;
+        }
+
+        int x, y;
+        String direction = initialPosition[2];
+
+        // Validate the input
+        try {
+            x = Integer.parseInt(initialPosition[0]);
+            y = Integer.parseInt(initialPosition[1]);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        if (x < 0 || x > maxX || y < 0 || y > maxY) {
+            return false;
+        }
+
+        if (!direction.matches("[NESW]")) {
+            return false;
+        }
+
+        // If all checks pass, the input is valid
+        return true;
     }
 
     private void outputRoverPositions(@NotNull List<Rover> rovers) {

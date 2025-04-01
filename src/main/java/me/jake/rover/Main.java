@@ -23,6 +23,14 @@ public class Main {
         System.out.println("Enter the plateau size (e.g. 5 5): ");
 
         final String[] plateauGrid = plateauScanner.nextLine().split(" ");
+
+        // Ensures that the plateau size is valid
+        if (plateauGrid.length < 2) {
+            System.out.println("Invalid plateau size");
+            return;
+        }
+
+        // Get the plateau grid size
         final int maxX = Integer.parseInt(plateauGrid[0]);
         final int maxY = Integer.parseInt(plateauGrid[1]);
 
@@ -49,7 +57,10 @@ public class Main {
         }
 
         // Ensures that there is at least one rover
-        if (userInstructions.size() < 2) return;
+        if (userInstructions.size() < 2) {
+            System.out.println("You must at least input one rover position and instructions");
+            return;
+        };
 
         // Send the instructions to the controller
         final RoverController roverController = new RoverController();
