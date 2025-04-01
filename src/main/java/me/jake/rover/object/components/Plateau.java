@@ -13,4 +13,8 @@ public final class Plateau {
         this.maxX = maxX;
         this.maxY = maxY;
     }
+
+    public boolean isWithinGrid(int x, int y) {
+        return x >= 0 && x <= maxX && y >= 0 && y <= maxY;
+    }
 }
