@@ -31,9 +31,9 @@ public final class RoverController {
             }
 
             // Get the x, y, and direction of the rover
-            int x = Integer.parseInt(initialPosition[0]);
-            int y = Integer.parseInt(initialPosition[1]);
-            String direction = initialPosition[2];
+            final int x = Integer.parseInt(initialPosition[0]);
+            final int y = Integer.parseInt(initialPosition[1]);
+            final String direction = initialPosition[2];
 
             // Create the rover object
             final Rover rover = new Rover(Main.getPlateau(), new Position(x, y, direction));
